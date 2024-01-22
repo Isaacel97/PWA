@@ -1,38 +1,32 @@
-function promesaConTimeout(promesa, tiempoLimite) {
-    return new Promise((resolve, reject) => {
-      const temporizador = setTimeout(() => {
-        // Si el temporizador se ejecuta antes de que la promesa se resuelva,
-        // rechazamos la nueva promesa con un mensaje indicando que se agotó el tiempo.
-        reject(new Error('Se ha agotado el tiempo'));
-      }, tiempoLimite);
+function esperarNVeces(n) {
+    return new Promise(function (resolve, reject) {
+      // Verificamos que n sea un número positivo.
+      // esto lo ise porque si el valor de n es negativo o no es un numero
+      // la funcion se ejecuta infinitamente
+      if (typeof n !== "number" || n <= 0) {
+        reject(new Error("El valor de n debe ser un número positivo."));
+        return;
+      }
   
-      promesa.then((resultado) => {
-        // Si la promesa original se resuelve antes de que se agote el tiempo,
-        // limpiamos el temporizador y resolvemos la nueva promesa con el resultado.
-        clearTimeout(temporizador);
-        resolve(resultado);
-      }).catch((error) => {
-        // Si la promesa original se rechaza, también limpiamos el temporizador
-        // y rechazamos la nueva promesa con el mismo error.
-        clearTimeout(temporizador);
-        reject(error);
-      });
+      function esperar(segundos) {
+        setTimeout(() => {
+          console.log(`¡He esperado ${segundos} veces!`);
+        }, segundos * 1000);
+      }
+  
+      //se inicia el ciclo for para que se ejecute la funcion esperar n veces
+      for (let i = 1; i <= n; i++) {
+        esperar(i);
+      }
     });
   }
   
-  // Ejemplo de uso:
-  const promesaOriginal = new Promise((resolve) => {
-    setTimeout(() => {
-      resolve('La promesa se ha resuelto');
-    }, 2000); // Esta promesa se resolverá después de 2000 milisegundos (2 segundos).
-  });
+  const N = 5; //aqui se puede cambiar el numero de veces que se ejecuta la funcion
   
-  const tiempoLimite = 2500; // aqui cambiamos el tiempo limite de la promesa
-  
-  const promesaConLimite = promesaConTimeout(promesaOriginal, tiempoLimite);
-  
-  promesaConLimite.then((resultado) => {
-    console.log(resultado);
-  }).catch((error) => {
-    console.error(error.message);
-  });
+  esperarNVeces(N)
+    .then((mensaje) => {
+      console.log(mensaje);
+    })
+    .catch((error) => {
+      console.error("ERROR:", error.message);
+    });
