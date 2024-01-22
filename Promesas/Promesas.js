@@ -1,19 +1,29 @@
-//uso de promesas
-// las promesas son objetos que representan la terminacion o el fracaso eventual de una operacion asincrona
+const cargarDatosDeApi = (url) => {
+    return new Promise((resolve, reject) => {
+        //simula una solicitud a una API
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Error en la solicitud: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                resolve(data);
+            
+            })
+            .catch(error => {
+                reject(`Error al cargar datos: ${error.message}`);
+            });
+    });
+}
 
-let promesaExitosa = new Promise((resolve, reject) => {
-    setTimeout(() => {
-        resolve("La operacion fue exitosa");
-    }, 3000);
-});
-
-
-//manejo de promesas
-//then() se ejecuta cuando la promesa se resuelve exitosamente
-//catch() se ejecuta cuando la promesa se rechaza
-
-promesaExitosa.then((mensaje) => {
-    console.log(mensaje);
-}).catch((error) => {
-    console.error(error);
-});
+//Uso de la función para cargar datos de una API
+const apiUrl = 'https://fakestoreapi.com/products/1';
+cargarDatosDeApi(apiUrl)
+    .then(data => {
+        console.log("Datos cargados", data);
+    })
+    .catch(error => {
+        console.error("Error:", error);
+    });
