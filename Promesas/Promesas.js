@@ -4,12 +4,11 @@ fetch('https://jsonplaceholder.typicode.com/userss')
         if (res.ok) {
             return res.json();
         } else {
-            throw new Error('No existe el producto');
+            throw new Error('No existe el producto', 1);
         }
     })
     .then(console.log)
     .catch(err => {
-        console.error('Error en la petición');
-        console.error(err);
+        console.error(err || 'Error en la petición');
     })
     
