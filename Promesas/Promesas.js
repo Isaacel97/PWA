@@ -1,14 +1,12 @@
-//Manejo de error
-fetch('https://jsonplaceholder.typicode.com/userss')
-    .then(res => {
-        if (res.ok) {
-            return res.json();
-        } else {
-            throw new Error('No existe el producto');
-        }
+//Leer archivos html
+fetch('not-found.html')
+    .then(resp => resp.text())
+    .then(html => {
+        document.querySelector('.body').innerHTML = html;
     })
-    .then(console.log)
     .catch(err => {
-        console.error(err || 'Error en la petición');
-    })
+        console.error('Error en la peticion')
+        console.error(err);
+    });
+
     
