@@ -1,14 +1,10 @@
-//Metodo .clone
+//Manejo de error
 fetch('https://fakestoreapi.com/products/1')
     .then(res => {
-        res.clone().json().then(data => {
-            console.log(data)
-        })
-        res.clone().json().then(data => {
-            console.log(data)
-        })
-        res.json().then(data => {
-            console.log(data)
-        })
+        res.json().then(console.log)
+    })
+    .catch(err => {
+        console.error('Error en la petición');
+        console.error(err);
     })
     
