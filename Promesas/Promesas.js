@@ -1,10 +1,10 @@
 //Manejo de error
-fetch('https://fakestoreapi.com/products/100')
+fetch('https://jsonplaceholder.typicode.com/userss')
     .then(res => {
         if (res.ok) {
             return res.json();
         } else {
-            throw new Error('No existe el producot');
+            throw new Error('No existe el producto');
         }
     })
     .then(console.log)
