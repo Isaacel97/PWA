@@ -1,11 +1,14 @@
-//Manejo del error con una doble sentencia
+//Metodo .clone
 fetch('https://fakestoreapi.com/products/1')
-    .then(response => {
-        response.json().then((data) => {
-            console.log(data);
+    .then(res => {
+        res.clone().json().then(data => {
+            console.log(data)
         })
-        response.json().then((data) => {
-            console.log(data);
-        });
+        res.clone().json().then(data => {
+            console.log(data)
+        })
+        res.json().then(data => {
+            console.log(data)
+        })
     })
     
