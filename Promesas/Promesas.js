@@ -1,20 +1,19 @@
-// Peticion post
+//Fetch archivos locales
 
-let user = {
-    name: 'Raul',
-    age: 26
-}
+// Almacena de manera local una imagen dentro de este
+// proyecto en la carpeta img realiza una solicitud fetch a esa imagen
+// y muestra la imagen en el navegador
 
-fetch('https://reqres.in/api/users', {
-    method: 'POST',
-    body: JSON.stringify(user),
-    headers: {
-        'Content-Type': 'application/json'
+
+const fetchImage = async () => {
+    try {
+        const response = await fetch('./imgLocal.jpg');
+        const blob = await response.blob();
+        const img = document.createElement('img');
+        img.setAttribute('id', 'img');
+        img.src = URL.createObjectURL(blob);
+        document.body.appendChild(img);
+    } catch (error) {
+        console.error(error);
     }
-})
-.then(resp => resp.json())
-.then(console.log)
-.catch(error => {
-    console.log('Error en la peticion');
-    console.log(error);
-});
+}
